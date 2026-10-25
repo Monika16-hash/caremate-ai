@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+
+# Environment
+.env
+
+# Firebase
+serviceAccount.json
+
+# Node
+node_modules/
+
+# Vite
+dist/
+
+# OS
+.DS_Store
+Thumbs.db

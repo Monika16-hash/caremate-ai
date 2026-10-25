@@ -1,0 +1,2 @@
+@tailwind base; @tailwind components; @tailwind utilities;
+.skeleton { @apply animate-pulse rounded-lg bg-slate-200 dark:bg-slate-700; }
