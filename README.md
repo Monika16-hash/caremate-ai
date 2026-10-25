@@ -1,3 +1,4 @@
+<img width="1142" height="2268" alt="image" src="https://github.com/user-attachments/assets/cb79d21d-b6f2-49ac-b9f3-ebef68874770" />
 # CareMate AI
 React + Tailwind + MUI icons (Vite) · Flask + JWT · Firestore · Gemini.
 
