@@ -1,4 +1,4 @@
-const BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+const BASE = import.meta.env.VITE_API_URL || 'https://api-docs.render.com/openapi/render-public-api-1.json'
 export const session = {
   get: () => JSON.parse(localStorage.getItem('cm_session') || 'null'),
   set: (s) => localStorage.setItem('cm_session', JSON.stringify(s)),
