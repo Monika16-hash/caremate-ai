@@ -208,8 +208,7 @@ def debug_doctors():
     return jsonify(project=firebase_admin.get_app().project_id, count=len(docs),
         docs=[{"id": d.id, "field_types": {k: type(v).__name__ for k, v in (d.to_dict() or {}).items()},
                "specialization_repr": repr((d.to_dict() or {}).get("specialization"))} for d in docs])
-import os
-
 if __name__ == "__main__":
+    import os
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
