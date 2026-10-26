@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'; import { api } from '../api'
 export default function Doctor() {
   const [appts, setAppts] = useState(null)
-  const load = () => api('/appointments').then(setAppts)
+  const load = () => api('/api/appointments').then(setAppts)
   useEffect(() => { load() }, [])
-  const act = (id, status) => api(`/appointments/${id}`, { method: 'PATCH', body: { status } }).then(load)
+  const act = (id, status) => api(`/api/appointments/${id}`, { method: 'PATCH', body: { status } }).then(load)
   return (
     <div className="rounded-2xl bg-white p-4 shadow dark:bg-slate-800">
       <h1 className="mb-2 font-semibold">Appointments</h1>
