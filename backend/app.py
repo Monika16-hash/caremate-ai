@@ -42,7 +42,12 @@ def auth(*roles):
 
 def make_token(uid, role):
     return jwt.encode({"sub": uid, "role": role, "exp": dt.datetime.utcnow() + dt.timedelta(hours=8)}, SECRET)
-
+@app.route("/")
+def home():
+    return {
+        "status": "success",
+        "message": "CareMate AI Backend Running"
+    }
 @app.post("/api/auth/register")
 @limiter.limit("10/minute")
 def register():
