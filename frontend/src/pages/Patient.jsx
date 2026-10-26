@@ -9,11 +9,11 @@ export default function Patient() {
   const [msg, setMsg] = useState(''); const [ai, setAi] = useState(null); const [text, setText] = useState(''); const [slot, setSlot] = useState({ date: '', time: '' }); const [report, setReport] = useState(null)
   const [checking, setChecking] = useState(false); const [aiError, setAiError] = useState('')
   const toast = (m) => { setMsg(m); setTimeout(() => setMsg(''), 3000) }
-  const loadAppts = () => api('/appointments').then(setAppts).catch((e) => toast(e.message))
+  const loadAppts = () => api('/api/appointments').then(setAppts).catch((e) => toast(e.message))
 const search = async (f = filters) => {
   setSearching(true); setSearchError('')
   try {
-    const r = await api('/doctors?' + new URLSearchParams(f))
+    const r = await api('/api/doctors?' + new URLSearchParams(f))
     setDocs(Array.isArray(r) ? r : [])
   } catch (e) { setDocs([]); setSearchError(e.message) } finally { setSearching(false) }
 }  
@@ -25,18 +25,18 @@ const [searching, setSearching] = useState(false); const [searchError, setSearch
   if (!text.trim()) return
   setChecking(true); setAiError(''); setAi(null)
   try {
-    const r = await api('/ai/symptoms', { method: 'POST', body: { message: text } })
+    const r = await api('/api/ai/symptoms', { method: 'POST', body: { message: text } })
     setAi(r)
     const f = { q: '', location: '', hospital: '', specialty: r.specialty || '' }
     setFilters(f); search(f)
   } catch (e) { setAiError(e.message) } finally { setChecking(false) }
 }
   async function book(id) {
-    try { await api('/appointments', { method: 'POST', body: { doctor_id: id, date: slot.date, slot: slot.time } }); toast('Appointment requested. Check your email.'); loadAppts() } catch (e) { toast(e.message) }
+    try { await api('/api/appointments', { method: 'POST', body: { doctor_id: id, date: slot.date, slot: slot.time } }); toast('Appointment requested. Check your email.'); loadAppts() } catch (e) { toast(e.message) }
   }
   async function upload(e) {
     const form = new FormData(); form.append('file', e.target.files[0])
-    try { setReport(await api('/reports', { method: 'POST', form })) } catch (err) { toast(err.message) }
+    try { setReport(await api('/api/reports', { method: 'POST', form })) } catch (err) { toast(err.message) }
   }
   const today = new Date().toISOString().slice(0, 10)
   const upcoming = (appts || []).filter((a) => a.date >= today), past = (appts || []).filter((a) => a.date < today)
