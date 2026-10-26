@@ -32,3 +32,22 @@ def send_email(to, subject, body):
     except Exception as e:
         print(f"[EMAIL ERROR] {e}", flush=True)
         return False
+
+
+def send_whatsapp(to_number, body):
+    if not os.getenv("TWILIO_SID"):
+        print(f"[whatsapp skipped] {to_number}", flush=True)
+        return False
+
+    from twilio.rest import Client
+
+    Client(
+        os.environ["TWILIO_SID"],
+        os.environ["TWILIO_TOKEN"]
+    ).messages.create(
+        from_=os.environ["TWILIO_WHATSAPP_FROM"],
+        to=f"whatsapp:{to_number}",
+        body=body
+    )
+
+    return True
