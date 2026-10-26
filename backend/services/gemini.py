@@ -29,8 +29,17 @@ def keyword_triage(text: str) -> dict:
             "reason": "Matched from the symptoms you described.",
             "urgent": any(u in t for u in URGENT)}
 
+_CLIENT = None
+
 def _client():
-    return genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+    global _CLIENT
+
+    if _CLIENT is None:
+        _CLIENT = genai.Client(
+            api_key=os.getenv("GEMINI_API_KEY")
+        )
+
+    return _CLIENT
 
 def _generate(prompt: str):
     """Try each model in MODELS in order; raise the last error if all fail."""
