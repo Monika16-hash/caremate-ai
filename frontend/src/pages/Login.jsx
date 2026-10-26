@@ -8,7 +8,7 @@ export default function Login() {
   async function submit(e) {
     e.preventDefault(); setError('')
     try {
-      const r = await api(f.mode === 'login' ? '/auth/login' : '/auth/register', { method: 'POST', body: f })
+      const r = await api(f.mode === 'login'? '/api/auth/login': '/api/auth/register',{ method: 'POST', body: f })
       session.set({ token: r.token, role: r.role }); nav(`/${r.role}`)
     } catch (err) { setError(err.message) }
   }
